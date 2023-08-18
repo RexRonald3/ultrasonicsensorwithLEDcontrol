@@ -1,0 +1,50 @@
+#define trig 11
+#define echo 10
+#define l1 7
+#define l2 5
+#define l3 3
+long dur;
+long dis;
+void setup(){
+  Serial.begin(9600);
+  pinMode(trig,OUTPUT);
+  pinMode(echo,INPUT);
+  pinMode(l1,OUTPUT);
+  pinMode(l2,OUTPUT);
+  pinMode(l3,OUTPUT);
+}
+void loop(){
+  digitalWrite(trig,LOW);
+  delay(2);
+  digitalWrite(trig,HIGH);
+  delay(10);
+  digitalWrite(trig,LOW);
+  
+  dur=pulseIn(echo,HIGH);
+  dis=0.034*dur/2;
+  if(dis<=130){
+    digitalWrite(l1,HIGH);
+    digitalWrite(l2,LOW);
+    digitalWrite(l3,LOW);
+    Serial.println(dis);
+    Serial.print("\nThe object is near\t");
+  delay(300);}
+  else if(dis>=270){
+    digitalWrite(l3,HIGH);
+    digitalWrite(l1,LOW);
+    digitalWrite(l2,LOW);
+    Serial.println(dis);
+    Serial.print("\nThe object is far\t");
+    delay(300);
+  }
+  else{
+    digitalWrite(l2,HIGH);
+    digitalWrite(l1,LOW);
+    digitalWrite(l3,LOW);
+    Serial.println(dis);
+    Serial.print("\nThe object is in middle\t");
+    delay(300);
+  
+  }
+}
+  
